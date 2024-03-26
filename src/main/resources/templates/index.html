@@ -22,5 +22,12 @@
     </tr>
 </table>
 
+<form action="#" th:action="@{/}" th:object="${newbook}" method="post">
+    <p>author <input type="text" th:field="*{author}"/></p>
+    <p>name: <input type="text" th:field="*{name}"/></p>
+    <p><input type="submit" value="create new book"/> <input type="reset" value="Reset"/></p>
+</form>
+
+
 </body>
 </html>
