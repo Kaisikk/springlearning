@@ -4,7 +4,6 @@ import com.kaisikk.java.springlearning.model.Book;
 import com.kaisikk.java.springlearning.repo.BookRepository;
 import com.kaisikk.java.springlearning.service.SoundAnimals;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
