@@ -1,5 +1,7 @@
 package com.kaisikk.java.springlearning.controller;
 
+import com.kaisikk.java.springlearning.gate.dto.UserDto;
+import com.kaisikk.java.springlearning.gate.service.JsonPlaceHolderGate;
 import com.kaisikk.java.springlearning.model.Book;
 import com.kaisikk.java.springlearning.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,16 @@ public class HomeControllerRest {
 
     private BookRepository bookRepository;
 
+    private JsonPlaceHolderGate jsonPlaceHolderGate;
+
     @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+
+    @Autowired
+    public void setJsonPlaceHolderGate(JsonPlaceHolderGate jsonPlaceHolderGate) {
+        this.jsonPlaceHolderGate = jsonPlaceHolderGate;
     }
 
     @GetMapping
@@ -66,6 +75,11 @@ public class HomeControllerRest {
             refreshBook.setName(bookPath.getName());
         }
         return bookRepository.save(refreshBook);
+    }
+
+    @GetMapping("/placeholder/test")
+    public UserDto getResponseFromApi() {
+        return jsonPlaceHolderGate.getUserListDto();
     }
 
 }
