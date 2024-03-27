@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Edit Book Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .validationError {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,7 +17,17 @@
 <div class="container-centered">
     <form action="#" th:action="@{'/'+${book.id}}" th:object="${book}" method="post">
         <p>author <input type="text" th:field="*{author}"/></p>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('author')}"
+              th:errors="*{author}"></span>
+
         <p>name: <input type="text" th:field="*{name}"/></p>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span>
+
         <p><input type="submit" value="edit book" class="btn bnt-primary green"/></p>
     </form>
 </div>
