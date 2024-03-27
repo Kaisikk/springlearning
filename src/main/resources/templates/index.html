@@ -7,23 +7,31 @@
 </head>
 <body>
 
-<h3>List of Books</h3>
+<h3 class="center">List of Books</h3>
 
 <table class="centered">
 
+    <thead>
     <tr>
         <th>Name</th>
         <th>Author</th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
-
+    </thead>
+    <tbody>
     <tr th:each="book:${books}">
         <td th:text="${book.name}"></td>
         <td th:text="${book.author}"></td>
+        <td><a href="" th:ref="@{'/'+${book.id}+'/show'}">SHOW</a></td>
+        <td><a href="" th:ref="@{'/' + ${book.id} + '/edit'}">EDIT</a></td>
+        <td><a href="" th:ref="@{'/' + ${book.id} + '/delete'}">DELETE</a></td>
     </tr>
+    </tbody>
 </table>
 
-<div class="container-center">
-
+<div class="container-centered">
     <form action="#" th:action="@{/}" th:object="${newbook}" method="post">
         <p>author <input type="text" th:field="*{author}"/></p>
         <p>name: <input type="text" th:field="*{name}"/></p>
