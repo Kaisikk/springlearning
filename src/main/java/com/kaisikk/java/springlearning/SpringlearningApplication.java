@@ -1,5 +1,7 @@
 package com.kaisikk.java.springlearning;
 
+import com.kaisikk.java.springlearning.model.Buyer;
+import com.kaisikk.java.springlearning.repo.BuyerRepoJDBC;
 import com.kaisikk.java.springlearning.service.CatSound;
 import com.kaisikk.java.springlearning.service.ScalaService;
 import com.kaisikk.java.springlearning.service.SoundAnimals;
@@ -33,16 +35,16 @@ public class SpringlearningApplication {
         ScalaService scalaService = (ScalaService) ctx.getBean("scalaService");
 
         System.out.println(scalaService.learnMe());
+
+        BuyerRepoJDBC buyerRepoJDBC = ctx.getBean(BuyerRepoJDBC.class);
+
+        buyerRepoJDBC.save(new Buyer(1L, "Kaisik", "Russia", 1000));
+        buyerRepoJDBC.save(new Buyer(2L, "Ilya", "England", 2000));
+
+        System.out.println(buyerRepoJDBC.findById("1"));
+        System.out.println("-------------");
+        buyerRepoJDBC.findAll().forEach(System.out::println);
     }
 
-//    @Bean
-//    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-//
-//        return args -> {
-//            System.out.println("All beans");
-//            Arrays.stream(ctx.getBeanDefinitionNames()).sorted().forEach(System.out::println);
-//        };
-//
-//    }
 
 }
