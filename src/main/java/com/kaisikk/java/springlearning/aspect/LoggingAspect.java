@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * Аспект для горирования методов
+ */
 @Component
 @Aspect
 @Slf4j
@@ -18,6 +21,11 @@ public class LoggingAspect {
 
     }
 
+    /**
+     * Чтобы вызвать логику перед вызовом метода
+     *
+     * @param joinPoint
+     */
     @Before("executeLogging()")
     public void logMethodCall(JoinPoint joinPoint) {
         StringBuilder message = new StringBuilder("Method: ");
@@ -29,6 +37,12 @@ public class LoggingAspect {
         log.info(message.toString());
     }
 
+    /**
+     * Чтобы вызвать логику после работы метода
+     *
+     * @param joinPoint
+     * @param returnValue
+     */
     @AfterReturning(pointcut = "executeLogging()", returning = "returnValue")
     public void logMethodCall(JoinPoint joinPoint, Object returnValue) {
 
@@ -40,6 +54,13 @@ public class LoggingAspect {
         log.info(message.toString());
     }
 
+    /**
+     * Можно вызывать прямо по время работы метода
+     *
+     * @param joinPoint
+     * @return
+     * @throws Throwable
+     */
     @Around("executeLogging()")
     public Object logMethodCall(ProceedingJoinPoint joinPoint) throws Throwable {
 
