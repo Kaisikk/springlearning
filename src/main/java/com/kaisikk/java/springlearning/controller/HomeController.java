@@ -1,9 +1,12 @@
 package com.kaisikk.java.springlearning.controller;
 
+import com.kaisikk.java.springlearning.gate.dto.UserDto;
+import com.kaisikk.java.springlearning.gate.service.JsonPlaceHolderGate;
 import com.kaisikk.java.springlearning.model.Book;
 import com.kaisikk.java.springlearning.repo.BookRepository;
 import com.kaisikk.java.springlearning.service.SoundAnimals;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +15,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 @Controller
+@Slf4j
 public class HomeController {
 
     private BookRepository bookRepository;
 
     private SoundAnimals soundAnimals;
+
+    private JsonPlaceHolderGate jsonPlaceHolderGate;
 
     @Autowired
     public void setBookRepository(BookRepository bookRepository) {
@@ -29,14 +39,28 @@ public class HomeController {
         this.soundAnimals = soundAnimals;
     }
 
+    @Autowired
+    public void setJsonPlaceHolderGate(JsonPlaceHolderGate jsonPlaceHolderGate) {
+        this.jsonPlaceHolderGate = jsonPlaceHolderGate;
+    }
+
     @GetMapping("/")
-    public String getIndex(Model model) {
+    public String getIndex(Model model) throws ExecutionException, InterruptedException, TimeoutException {
 
         System.out.println(soundAnimals.sound());
 
+
         model.addAttribute("books", bookRepository.findAll());
         model.addAttribute("newbook", new Book());
+//        model.addAttribute("api", userDto.getBody());
 
+        try {
+            UserDto userDto = jsonPlaceHolderGate.getUserListDtoAsync().get(5, TimeUnit.SECONDS);
+
+            model.addAttribute("api", userDto.getBody());
+        } catch (Exception ex) {
+            log.info("too long");
+        }
         return "index";
     }
 

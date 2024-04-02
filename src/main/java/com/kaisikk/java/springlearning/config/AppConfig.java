@@ -6,7 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.concurrent.Executor;
 
 @Configuration
 @PropertySource("classpath:my.properties")
@@ -27,6 +30,14 @@ public class AppConfig {
     @Scope("prototype")
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public Executor executor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setMaxPoolSize(4);
+        executor.setQueueCapacity(500);
+        return executor;
     }
 
 }
