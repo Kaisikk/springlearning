@@ -7,6 +7,8 @@ import com.kaisikk.java.springlearning.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -80,6 +82,13 @@ public class HomeControllerRest {
     @GetMapping("/placeholder/test")
     public UserDto getResponseFromApi() {
         return jsonPlaceHolderGate.getUserListDto();
+    }
+
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRED)
+    @GetMapping("/{id}/deletebyid")
+    public void deleteById(@PathVariable("id") Long id){
+        bookRepository.deleteById(id);
+        throw new RuntimeException();
     }
 
 }
