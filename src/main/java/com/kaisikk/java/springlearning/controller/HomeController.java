@@ -44,6 +44,15 @@ public class HomeController {
         this.jsonPlaceHolderGate = jsonPlaceHolderGate;
     }
 
+    /**
+     * Отрисовка основной страницы
+     *
+     * @param model
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     * @throws TimeoutException
+     */
     @GetMapping("/")
     public String getIndex(Model model) throws ExecutionException, InterruptedException, TimeoutException {
 

@@ -84,6 +84,11 @@ public class HomeControllerRest {
         return jsonPlaceHolderGate.getUserListDto();
     }
 
+    /**
+     * Транзакционный метод
+     *
+     * @param id
+     */
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRED)
     @GetMapping("/{id}/deletebyid")
     public void deleteById(@PathVariable("id") Long id){

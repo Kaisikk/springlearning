@@ -26,12 +26,22 @@ public class AppConfig {
         return scalaService;
     }
 
+    /**
+     * Объект для отправки и получения Rest запросов
+     *
+     * @return
+     */
     @Bean
     @Scope("prototype")
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
+    /**
+     * Экзекутор для запуска тасков в приложении (его конфиг)
+     *
+     * @return
+     */
     @Bean
     public Executor executor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
