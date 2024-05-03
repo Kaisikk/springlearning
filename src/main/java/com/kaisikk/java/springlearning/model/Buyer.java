@@ -1,11 +1,16 @@
 package com.kaisikk.java.springlearning.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.kaisikk.java.springlearning.view.View;
+
 public class Buyer {
 
     private Long id;
 
+    @JsonView(View.Min.class)
     private String name;
 
+    @JsonView(View.Body.class)
     private String country;
 
     private Integer token;
